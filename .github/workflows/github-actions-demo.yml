@@ -10,7 +10,7 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "The name of your branch is ${{ github.ref }}, GITHUB_REF: ${{ env.GITHUB_REF }}"
+      - run: echo "The name of your branch is ${{ github.ref }}, GITHUB_REF" ':' "${{ env.GITHUB_REF }}"
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}

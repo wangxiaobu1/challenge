@@ -1,0 +1,7 @@
+Day02. 前缀和数组技巧 
+https://labuladong.gitee.io/algo/2/19/22/
+
+牛客网	LeetCode	力扣	难度
+-	303. Range Sum Query - Immutable	303. 区域和检索 - 数组不可变	🟢
+-	304. Range Sum Query 2D - Immutable	304. 二维区域和检索 - 矩阵不可变	🟠
+和为 K 的子数组	560. Subarray Sum Equals K	560. 和为 K 的子数组

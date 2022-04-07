@@ -1,0 +1,7 @@
+Day03. 差分数组技巧
+https://labuladong.gitee.io/algo/2/19/23/
+
+LeetCode	力扣
+370. Range Addition✨	370. 区间加法
+1109. Corporate Flight Bookings	1109. 航班预订统计
+1094. Car Pooling	1094. 拼车

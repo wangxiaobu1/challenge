@@ -3,3 +3,62 @@ https://labuladong.github.io/algo/2/21/57/
 
 牛客网	LeetCode	力扣	难度
 LRU 缓存	146. LRU Cache	146. LRU 缓存
+
+
+type LRUCache struct {
+    
+
+}
+
+
+func Constructor(capacity int) LRUCache {
+
+}
+
+
+func (this *LRUCache) Get(key int) int {
+
+}
+
+
+func (this *LRUCache) Put(key int, value int)  {
+
+}
+
+type DLinkedNode struct {
+    Head Node
+    Tail Node
+    Size int
+}
+
+func (this *DLinkedNode)InitDLinkedNode() {
+    head := Node{0, 0, Node{}, Node{}}
+    tail := Node{0, 0, Node{}, Node{}}
+    head.Next = tail
+    tail.Pre = head
+    this.Size = 0
+}
+
+func (this *DLinkedNode) AddDLinkedNode() {}
+func (this *DLinkedNode) RemoveDLinkedNode() {}
+func (this *DLinkedNode) RemoveFirstDLinkedNode() {}
+
+type Node struct {
+    Key int
+    Value int
+    Pre Node
+    Next Node
+}
+
+
+func (this *Node) AddNode(node Node) {
+    node.Next = this.Next
+    node.Next.Pre = node
+    this.Next = node
+    node.Pre = this
+}
+
+func (this *Node) RemoveNode(node Node) {
+    node.Next.Pre = node.Pre
+    node.Pre.Next = node.Next
+}

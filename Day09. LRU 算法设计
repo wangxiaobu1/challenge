@@ -4,61 +4,120 @@ https://labuladong.github.io/algo/2/21/57/
 牛客网	LeetCode	力扣	难度
 LRU 缓存	146. LRU Cache	146. LRU 缓存
 
-
+```go
 type LRUCache struct {
-    
-
+    Capacity int
+    Size int
+    Cache map[int]*DLinkedNode
+    Head *DLinkedNode
+    Tail *DLinkedNode
 }
 
 
 func Constructor(capacity int) LRUCache {
-
+    l := LRUCache{
+        Capacity: capacity,
+        Size: 0,
+        Cache: map[int]*DLinkedNode{},
+        Head: InitDLinkedNode(0, 0),
+        Tail: InitDLinkedNode(0, 0),
+    }
+    l.Head.Next = l.Tail
+    l.Tail.Pre = l.Head
+    return l
 }
 
 
 func (this *LRUCache) Get(key int) int {
-
+    node, ok := this.Cache[key]
+    if !ok {
+        return -1
+    }
+    this.MoveToHead(node)
+    return node.Value
 }
 
+
+// func (this *LRUCache) Put(key int, value int)  {
+//     node, ok := this.Cache[key]
+//     if !ok {
+//         node = InitDLinkedNode(key, value)
+//         if this.Size < this.Capacity {
+//             this.AddToHead(node)
+//             this.Size++
+//         } else {
+//             this.RemoveTail()
+//             this.AddToHead(node)
+//         }
+//     } else {
+//         node.Value = value
+//         this.MoveToHead(node)
+//     }
+// }
 
 func (this *LRUCache) Put(key int, value int)  {
-
+    if _, ok := this.Cache[key]; !ok {
+        node := InitDLinkedNode(key, value)
+        this.Cache[key] = node
+        this.AddToHead(node)
+        this.Size++
+        if this.Size > this.Capacity {
+            removed := this.RemoveTail()
+            delete(this.Cache, removed.Key)
+            this.Size--
+        }
+    } else {
+        node := this.Cache[key]
+        node.Value = value
+        this.MoveToHead(node)
+    }
 }
+
 
 type DLinkedNode struct {
-    Head Node
-    Tail Node
-    Size int
-}
-
-func (this *DLinkedNode)InitDLinkedNode() {
-    head := Node{0, 0, Node{}, Node{}}
-    tail := Node{0, 0, Node{}, Node{}}
-    head.Next = tail
-    tail.Pre = head
-    this.Size = 0
-}
-
-func (this *DLinkedNode) AddDLinkedNode() {}
-func (this *DLinkedNode) RemoveDLinkedNode() {}
-func (this *DLinkedNode) RemoveFirstDLinkedNode() {}
-
-type Node struct {
     Key int
     Value int
-    Pre Node
-    Next Node
+    Pre *DLinkedNode
+    Next *DLinkedNode
 }
 
+func InitDLinkedNode(key, value int) *DLinkedNode {
+    return &DLinkedNode{
+        Key: key,
+        Value: value,
+    }
+}
 
-func (this *Node) AddNode(node Node) {
-    node.Next = this.Next
+func (this *LRUCache) AddToHead(node *DLinkedNode)  {
+    node.Pre = this.Head
+    node.Next = this.Head.Next
     node.Next.Pre = node
-    this.Next = node
-    node.Pre = this
+    this.Head.Next = node
 }
-
-func (this *Node) RemoveNode(node Node) {
+func (this *LRUCache) RemoveNode(node *DLinkedNode)  {
     node.Next.Pre = node.Pre
     node.Pre.Next = node.Next
 }
+func (this *LRUCache) MoveToHead(node *DLinkedNode)  {
+    this.RemoveNode(node)
+    this.AddToHead(node)
+}
+
+func (this *LRUCache) RemoveTail() *DLinkedNode {
+    // this.Tail.Pre = this.Tail.Pre.Pre
+    // this.Tail.Pre.Next = this.Tail
+    node := this.Tail.Pre
+    this.RemoveNode(node)
+    return node
+}
+
+
+
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * obj := Constructor(capacity);
+ * param_1 := obj.Get(key);
+ * obj.Put(key,value);
+ */
+```
